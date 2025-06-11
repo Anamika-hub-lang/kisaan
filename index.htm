@@ -1,0 +1,1050 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KisanDirect - Connect Directly with Manufacturers</title>
+    <style>
+        :root {
+            --dark-green: #135e30;
+            --medium-green: #2a8d4e;
+            --light-green: #3cb371;
+            --accent-green: #89c97b;
+            --cream: #f5f5dc;
+            --white: #ffffff;
+            --dark-text: #333333;
+            --light-text: #f0f0f0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f9f9f9;
+            color: var(--dark-text);
+            line-height: 1.6;
+        }
+
+        /* Header Styles */
+        header {
+            background-color: var(--dark-green);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--white);
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            font-size: 2rem;
+        }
+
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .nav-links a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 0;
+            position: relative;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-green);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--accent-green);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .auth-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn {
+            padding: 0.5rem 1.2rem;
+            border-radius: 5px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-outline {
+            border: 2px solid var(--white);
+            color: var(--white);
+            background: transparent;
+        }
+
+        .btn-primary {
+            background-color: var(--light-green);
+            color: var(--white);
+            border: none;
+        }
+
+        .btn-outline:hover {
+            background-color: var(--white);
+            color: var(--dark-green);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--medium-green);
+        }
+
+        .hamburger {
+            display: none;
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(19, 94, 48, 0.9), rgba(19, 94, 48, 0.85)), url('/api/placeholder/1200/600') center/cover no-repeat;
+            padding: 5rem 2rem;
+            color: var(--white);
+            text-align: center;
+            position: relative;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+
+        .search-bar {
+            background-color: var(--white);
+            padding: 0.5rem;
+            border-radius: 50px;
+            max-width: 600px;
+            margin: 0 auto;
+            display: flex;
+        }
+
+        .search-bar input {
+            flex: 1;
+            padding: 0.8rem 1.5rem;
+            border: none;
+            outline: none;
+            font-size: 1rem;
+            border-radius: 50px;
+        }
+
+        .search-bar button {
+            background-color: var(--medium-green);
+            color: var(--white);
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: 0.3s;
+        }
+
+        .search-bar button:hover {
+            background-color: var(--dark-green);
+        }
+
+        /* Categories Section */
+        .section {
+            padding: 4rem 2rem;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--dark-green);
+        }
+
+        .section-title h2 {
+            font-size: 2rem;
+            position: relative;
+            display: inline-block;
+            padding-bottom: 0.5rem;
+        }
+
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background-color: var(--medium-green);
+        }
+
+        .categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .category-card {
+            background-color: var(--white);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: 0.3s;
+        }
+
+        .category-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .category-img {
+            height: 180px;
+            background-color: #e9e9e9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .category-img img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: cover;
+        }
+
+        .category-info {
+            padding: 1.5rem;
+        }
+
+        .category-info h3 {
+            color: var(--dark-green);
+            margin-bottom: 0.5rem;
+        }
+
+        .category-info p {
+            color: #666;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .category-info .btn {
+            width: 100%;
+            text-align: center;
+        }
+
+        /* How It Works Section */
+        .how-it-works {
+            background-color: #f0f7f1;
+        }
+
+        .steps {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            gap: 2rem;
+        }
+
+        .step {
+            background-color: var(--white);
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            flex: 1;
+            min-width: 250px;
+            text-align: center;
+            position: relative;
+        }
+
+        .step-number {
+            background-color: var(--medium-green);
+            color: var(--white);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .step h3 {
+            margin: 1rem 0;
+            color: var(--dark-green);
+        }
+
+        /* Manufacturers Section */
+        .manufacturer-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .manufacturer-card {
+            background-color: var(--white);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .manufacturer-img {
+            height: 200px;
+            background-color: #e9e9e9;
+        }
+
+        .manufacturer-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .manufacturer-info {
+            padding: 1.5rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .manufacturer-info h3 {
+            color: var(--dark-green);
+            margin-bottom: 0.5rem;
+        }
+
+        .manufacturer-info .location {
+            color: #666;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .manufacturer-info p {
+            color: #666;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            flex-grow: 1;
+        }
+
+        .manufacturer-info .btn {
+            width: 100%;
+            text-align: center;
+        }
+
+        /* Testimonials */
+        .testimonials {
+            background-color: #f0f7f1;
+        }
+
+        .testimonial-cards {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .testimonial-card {
+            background-color: var(--white);
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .testimonial-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .testimonial-img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: #e9e9e9;
+            overflow: hidden;
+        }
+
+        .testimonial-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .testimonial-author h4 {
+            color: var(--dark-green);
+            margin-bottom: 0.2rem;
+        }
+
+        .testimonial-author p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .testimonial-content {
+            position: relative;
+            font-style: italic;
+            color: #555;
+        }
+
+        .testimonial-content::before {
+            content: '"';
+            font-size: 5rem;
+            color: rgba(19, 94, 48, 0.1);
+            position: absolute;
+            top: -2.5rem;
+            left: -1rem;
+            font-family: serif;
+        }
+
+        /* Login Modal */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal {
+            background-color: var(--white);
+            border-radius: 10px;
+            padding: 2rem;
+            width: 90%;
+            max-width: 400px;
+            box-shadow: 0 5px 30px rgba(0, 0, 0, 0.3);
+            position: relative;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #999;
+            transition: 0.3s;
+        }
+
+        .close-modal:hover {
+            color: var(--dark-green);
+        }
+
+        .modal-tabs {
+            display: flex;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .modal-tab {
+            padding: 0.8rem 1rem;
+            cursor: pointer;
+            font-weight: 500;
+            transition: 0.3s;
+            flex: 1;
+            text-align: center;
+        }
+
+        .modal-tab.active {
+            color: var(--dark-green);
+            border-bottom: 2px solid var(--dark-green);
+        }
+
+        .modal-tab:hover:not(.active) {
+            color: var(--medium-green);
+        }
+
+        .modal-content > div {
+            display: none;
+        }
+
+        .modal-content > div.active {
+            display: block;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #666;
+            font-weight: 500;
+        }
+
+        .form-group input, 
+        .form-group select {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        .form-group input:focus, 
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--medium-green);
+        }
+
+        .remember-forgot {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            font-size: 0.9rem;
+        }
+
+        .remember {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .forgot-password {
+            color: var(--medium-green);
+            text-decoration: none;
+        }
+
+        .forgot-password:hover {
+            text-decoration: underline;
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 0.8rem;
+            background-color: var(--dark-green);
+            color: var(--white);
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: 0.3s;
+        }
+
+        .login-btn:hover {
+            background-color: var(--medium-green);
+        }
+
+        .social-login {
+            margin-top: 1.5rem;
+            text-align: center;
+        }
+
+        .social-login p {
+            margin-bottom: 1rem;
+            position: relative;
+            color: #666;
+        }
+
+        .social-login p::before, 
+        .social-login p::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            width: 40%;
+            height: 1px;
+            background-color: #ddd;
+        }
+
+        .social-login p::before {
+            left: 0;
+        }
+
+        .social-login p::after {
+            right: 0;
+        }
+
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #f5f5f5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: #333;
+            transition: 0.3s;
+        }
+
+        .social-icon:hover {
+            background-color: #e0e0e0;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--dark-green);
+            color: var(--light-text);
+            padding: 4rem 2rem 2rem;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            max-width: 1200px;
+            margin: 0 auto;
+            gap: 2rem;
+        }
+
+        .footer-logo {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .footer-logo h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .footer-logo p {
+            margin-bottom: 1.5rem;
+            color: #ccc;
+        }
+
+        .footer-links {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .footer-links h4 {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+
+        .footer-links h4::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background-color: var(--accent-green);
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links ul li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links ul li a {
+            color: #ccc;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        .footer-links ul li a:hover {
+            color: var(--accent-green);
+        }
+
+        .footer-newsletter {
+            flex: 2;
+            min-width: 300px;
+        }
+
+        .footer-newsletter h4 {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+
+        .footer-newsletter h4::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background-color: var(--accent-green);
+        }
+
+        .footer-newsletter p {
+            margin-bottom: 1.5rem;
+            color: #ccc;
+        }
+
+        .newsletter-form {
+            display: flex;
+        }
+
+        .newsletter-form input {
+            flex: 1;
+            padding: 0.8rem;
+            border: none;
+            border-radius: 5px 0 0 5px;
+            outline: none;
+        }
+
+        .newsletter-form button {
+            background-color: var(--medium-green);
+            color: var(--white);
+            border: none;
+            padding: 0 1.5rem;
+            border-radius: 0 5px 5px 0;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .newsletter-form button:hover {
+            background-color: var(--accent-green);
+        }
+
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding-top: 2rem;
+            margin-top: 3rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .footer-bottom p {
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-links a {
+            color: #aaa;
+            font-size: 1.2rem;
+            transition: 0.3s;
+        }
+
+        .social-links a:hover {
+            color: var(--accent-green);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links, 
+            .auth-buttons {
+                display: none;
+            }
+
+            .hamburger {
+                display: block;
+                color: var(--white);
+                font-size: 1.5rem;
+            }
+
+            .footer-content {
+                flex-direction: column;
+            }
+
+            .modal {
+                width: 95%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <a href="#" class="logo">
+            <span class="logo-icon">🌾</span>
+            <span class="logo-text">KisanDirect</span>
+        </a>
+
+        <nav class="nav-links">
+            <a href="#">Home</a>
+            <a href="#">Products</a>
+            <a href="#">Manufacturers</a>
+            <a href="#">About Us</a>
+            <a href="#">Contact</a>
+        </nav>
+
+        <div class="auth-buttons">
+            <a href="login.htm" class="btn btn-outline" id="login-btn">Login</a>
+            <a href="#" class="btn btn-primary" id="register-btn">Register</a>
+        </div>
+
+        <div class="hamburger">
+            <span>☰</span>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Direct from Manufacturers to Farmers</h1>
+            <p>Cut out the middlemen and get quality farming supplies at better prices. Connect directly with trusted manufacturers.</p>
+            <div class="search-bar">
+                <input type="text" placeholder="Search for products, seeds, fertilizers...">
+                <button>Search</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Categories Section -->
+    <section class="section">
+        <div class="section-title">
+            <h2>Browse Categories</h2>
+        </div>
+        <div class="categories">
+            <div class="category-card">
+                <div class="category-img">
+                    <img src="https://th.bing.com/th/id/OIP.AXCVsJOc9tigpBoanOD4JAHaFj?w=230&h=180&c=7&r=0&o=5&pid=1.7" alt="Seeds">
+                </div>
+                <div class="category-info">
+                    <h3>Seeds</h3>
+                    <p>High-quality seeds directly from certified producers.</p>
+                    <a href="#" class="btn btn-primary">Explore Seeds</a>
+                </div>
+            </div>
+            <div class="category-card">
+                <div class="category-img">
+                    <img src="" alt="Fertilizers">
+                </div>
+                <div class="category-info">
+                    <h3>Fertilizers</h3>
+                    <p>Organic and chemical fertilizers at wholesale prices.</p>
+                    <a href="#" class="btn btn-primary">Explore Fertilizers</a>
+                </div>
+            </div>
+            <div class="category-card">
+                <div class="category-img">
+                    <img src="https://th.bing.com/th/id/OIP.qylJqh6xHd0blw3ighIyDQHaEK?w=264&h=180&c=7&r=0&o=5&pid=1.7" alt="Farm Equipment">
+                </div>
+                <div class="category-info">
+                    <h3>Farm Equipment</h3>
+                    <p>Modern farming tools and machinery at factory prices.</p>
+                    <a href="#" class="btn btn-primary">Explore Equipment</a>
+                </div>
+            </div>
+            <div class="category-card">
+                <div class="category-img">
+                    <img src=" " alt="Pesticides">
+                </div>
+                <div class="category-info">
+                    <h3>Pesticides</h3>
+                    <p>Effective pest control solutions from quality manufacturers.</p>
+                    <a href="#" class="btn btn-primary">Explore Pesticides</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section class="section how-it-works">
+        <div class="section-title">
+            <h2>How KisanDirect Works</h2>
+        </div>
+        <div class="steps">
+            <div class="step">
+                <div class="step-number">1</div>
+                <h3>Register</h3>
+                <p>Create your account as a farmer and complete your profile with your farming needs.</p>
+            </div>
+            <div class="step">
+                <div class="step-number">2</div>
+                <h3>Browse & Compare</h3>
+                <p>Search for products, compare prices and quality from different manufacturers.</p>
+            </div>
+            <div class="step">
+                <div class="step-number">3</div>
+                <h3>Connect</h3>
+                <p>Connect directly with manufacturers through our secure messaging system.</p>
+            </div>
+            <div class="step">
+                <div class="step-number">4</div>
+                <h3>Purchase</h3>
+                <p>Buy quality products at manufacturer prices with secure payment options.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Manufacturers -->
+    <section class="section">
+        <div class="section-title">
+            <h2>Featured Manufacturers</h2>
+        </div>
+        <div class="manufacturer-cards">
+            <div class="manufacturer-card">
+                <div class="manufacturer-img">
+                    <img src="https://th.bing.com/th/id/OIP.q9EibUUg6wNKy1hmbY23ngHaFa?w=241&h=180&c=7&r=0&o=5&pid=1.7" alt="Manufacturer 1">
+                </div>
+                <div class="manufacturer-info">
+                    <h3>Green Fields Inc.</h3>
+                    <div class="location">
+                        <span>📍</span> Punjab, India
+                    </div>
+                    <p>Specializing in organic fertilizers and soil enhancers with over 20 years of experience.</p>
+                    <a href="#" class="btn btn-primary">View Products</a>
+                </div>
+            </div>
+            <div class="manufacturer-card">
+                <div class="manufacturer-img">
+                    <img src="https://th.bing.com/th/id/OIP.RxPsyX-8A6yBt4ubP_JKKQHaEK?w=334&h=187&c=7&r=0&o=5&pid=1.7" alt="Manufacturer 2">
+                </div>
+                <div class="manufacturer-info">
+                    <h3>SeedTech Solutions</h3>
+                    <div class="location">
+                        <span>📍</span> Haryana, India
+                    </div>
+                    <p>Premium quality seeds for various crops with high yield and disease resistance.</p>
+                    <a href="#" class="btn btn-primary">View Products</a>
+                </div>
+            </div>
+            <div class="manufacturer-card">
+                <div class="manufacturer-img">
+                    <img src="https://th.bing.com/th/id/OIP.mJ8EFEzJ2G_1ejTxCjOhuQHaEK?w=266&h=180&c=7&r=0&o=5&pid=1.7" alt="Manufacturer 3">
+                </div>
+                <div class="manufacturer-info">
+                    <h3>AgriEquip Ltd.</h3>
+                    <div class="location">
+                        <span>📍</span> Uttar Pradesh, India
+                    </div>
+                    <p>Modern farming equipment and machinery for small to large scale farmers.</p>
+                    <a href="#" class="btn btn-primary">View Products</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+
+    <!-- Testimonials -->
+    <section class="section testimonials">
+        <div class="section-title">
+            <h2>What Farmers Say</h2>
+        </div>
+        <div class="testimonial-cards">
+            <div class="testimonial-card">
+                <div class="testimonial-header">
+                    <div class="testimonial-img">
+                        <img src="https://th.bing.com/th/id/OIP.QCYdcxYtUc56X--KhgxLCgHaE7?w=306&h=203&c=7&r=0&o=5&pid=1.7" alt="Farmer 1">
+                    </div>
+                    <div class="testimonial-author">
+                        <h4>Ramesh Singh</h4>
+                        <p>Wheat Farmer, Punjab</p>
+                    </div>
+                </div>
+                <div class="testimonial-content">
+                    <p>KisanDirect has transformed the way I purchase farming supplies. I'm now saving up to 20% on seeds and fertilizers by buying directly from manufacturers.</p>
+                </div>
+            </div>
+            <div class="testimonial-card">
+                <div class="testimonial-header">
+                    <div class="testimonial-img">
+                        <img src="" alt="Farmer 2">
+                    </div>
+                    <div class="testimonial-author">
+                        <h4>Lakshmi Devi</h4>
+                        <p>Vegetable Grower, Karnataka</p>
+                    </div>
+                </div>
+                <div class="testimonial-content">
+                    <p>The quality of products I get through KisanDirect is much better than what local dealers provided. My crop yield has improved significantly!</p>
+                </div>
+            </div>
+            <div class="testimonial-card">
+                <div class="testimonial-header">
+                    <div class="testimonial-img">
+                        <img src="https://th.bing.com/th/id/OIP.rJpbb-q4vtY81UI6AtbRhwHaHp?w=152&h=180&c=7&r=0&o=5&pid=1.7" alt="Farmer 3">
+                    </div>
+                    <div class="testimonial-author">
+                        <h4>Mohan Kumar</h4>
+                        <p>Rice Farmer, West Bengal</p>
+                    </div>
+                </div>
+                <div class="testimonial-content">
+                    <p>Direct access to manufacturers has not only saved me money but also given me access to new farming technologies that weren't available locally.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+   <footer class="footer ideas">
+  <p>© 2025 ApnaVehicle. All rights reserved.</p>
+  <p>Follow us on 
+    <a href="#">Instagram</a>, 
+    <a href="#">LinkedIn</a>, 
+    <a href="#">YouTube</a>
+  </p>
+  <a href="/privacy-policy">Privacy Policy</a> |
+  <a href="/terms">Terms of Use</a>
+</footer>
+</body>
+</html>
